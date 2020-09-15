@@ -14,7 +14,7 @@ namespace RobotsVsDinosaurs
         public double robotPowerLevel;
         public Weapon defaultWeapon;
         public bool robotIsAlive;
-        
+
         //constructor
         public Robot(string robotName, Weapon defaultWeapon)
         {
@@ -24,11 +24,11 @@ namespace RobotsVsDinosaurs
             this.robotName = robotName;
             this.defaultWeapon = defaultWeapon;
         }
-        
+
         //methods
         public void CheckRobotLife()
         {
-            if(robotHealth <= 0)
+            if (robotHealth <= 0)
             {
                 robotIsAlive = false;
                 Console.WriteLine(robotName + "has died");

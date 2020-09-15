@@ -15,12 +15,13 @@ namespace RobotsVsDinosaurs
         //Constructor
         public Fleet()
         {
-            robots = new List<Robot>();
+            List<Robot> robots = new List<Robot>();
         }
         //Methods
         public void AddRobotToFleet(Robot robot)
         {
             robots.Add(robot);
         }
+
     }
 }

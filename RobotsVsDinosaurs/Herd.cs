@@ -30,10 +30,5 @@ namespace RobotsVsDinosaurs
                 Console.WriteLine($"Name: {dinosaur.dinosaurType}");
             }
         }
-
-        public void CheckHerdHealth()
-        {
-            herdHealth
-        }
     }
 }

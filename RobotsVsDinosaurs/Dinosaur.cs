@@ -48,7 +48,7 @@ namespace RobotsVsDinosaurs
         {
             dinosaurHealth -= damage;
             CheckDinosaurLife();
-            
+
 
         }
     }

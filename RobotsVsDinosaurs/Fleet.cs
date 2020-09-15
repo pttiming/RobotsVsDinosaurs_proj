@@ -10,12 +10,11 @@ namespace RobotsVsDinosaurs
     {
         //Member Variable
         public List<Robot> robots;
-        public string fleetName;
 
         //Constructor
         public Fleet()
         {
-            List<Robot> robots = new List<Robot>();
+            robots = new List<Robot>();
         }
         //Methods
         public void AddRobotToFleet(Robot robot)

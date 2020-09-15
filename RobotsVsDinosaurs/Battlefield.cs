@@ -11,6 +11,11 @@ namespace RobotsVsDinosaurs
         //Member Variable
 
         //Constructor
+        public Battlefield()
+        {
+            InitializeRobots();
+            InitializeDinosaurs();
+        }
 
         //Methods
         public void InitializeRobots()
@@ -58,9 +63,13 @@ namespace RobotsVsDinosaurs
             foreach (Dinosaur dinosaur in herdOne.dinosaurs)
             {
                 Console.WriteLine($"Name: {dinosaur.dinosaurType}");
-                Console.WriteLine($"Weapon: {dinosaur.dinosaurAttackPower}");
+                Console.WriteLine($"Attack Power: {dinosaur.dinosaurAttackPower}");
 
             }
+        }
+        public void RunGame()
+        {
+
         }
 
     }

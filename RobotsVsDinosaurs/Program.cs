@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace RobotsVsDinosaurs
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            Battlefield sim = new Battlefield();
+            sim.InitializeGame();
+            sim.StartGame();
         }
     }
 }

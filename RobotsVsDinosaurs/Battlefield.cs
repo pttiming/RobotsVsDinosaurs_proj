@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace RobotsVsDinosaurs
 {
-    Public class Battlefield
+    public class Battlefield
     {
+        //Member Variable
+
+        //Constructor
+
+        //Methods
+        
     }
 }

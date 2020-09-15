@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace RobotsVsDinosaurs
 {
-    Public class Fleet
+    public class Fleet
     {
+        //Member Variable
+        public List<Robot> robots;
+        public string fleetName;
+
+        //Constructor
+        public Fleet()
+        {
+            robots = new List<Robot>();
+        }
+        //Methods
+        public void AddRobotToFleet(Robot robot)
+        {
+            robots.Add(robot);
+        }
     }
 }

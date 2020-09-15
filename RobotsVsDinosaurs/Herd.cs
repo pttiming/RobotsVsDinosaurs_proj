@@ -6,7 +6,34 @@ using System.Threading.Tasks;
 
 namespace RobotsVsDinosaurs
 {
-    Public class Herd
+    public class Herd
     {
+        //Member Variable
+        public List<Dinosaur> dinosaurs;
+        public bool herdIsAlive;
+        //Constructor
+        public Herd()
+        {
+            dinosaurs = new List<Dinosaur>();
+            herdIsAlive = true;
+
+        }
+        //Methods
+        public void AddDinosaurToHerd(Dinosaur dinosaur)
+        {
+            dinosaurs.Add(dinosaur);
+        }
+        public void ListHerd()
+        {
+            foreach (Dinosaur dinosaur in dinosaurs)
+            {
+                Console.WriteLine($"Name: {dinosaur.dinosaurType}");
+            }
+        }
+
+        public void CheckHerdHealth()
+        {
+            herdHealth
+        }
     }
 }

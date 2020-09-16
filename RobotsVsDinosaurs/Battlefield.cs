@@ -66,6 +66,8 @@ namespace RobotsVsDinosaurs
                 Console.WriteLine($"Attack Power: {dinosaur.dinosaurAttackPower}");
 
             }
+            herdOne.CheckFleetHealth();
+            Console.WriteLine(herdOne.herdHealth);
         }
         public void RunGame()
         {

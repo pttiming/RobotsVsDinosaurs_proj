@@ -21,6 +21,11 @@ namespace RobotsVsDinosaurs
         {
             robots.Add(robot);
         }
+        public void CheckFleetHealth()
+        {
+            double fleetHealth;
+            fleetHealth = robots.Sum(robots => robots.robotHealth);
+        }
 
     }
 }

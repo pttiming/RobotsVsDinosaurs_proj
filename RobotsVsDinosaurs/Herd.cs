@@ -11,6 +11,7 @@ namespace RobotsVsDinosaurs
         //Member Variable
         public List<Dinosaur> dinosaurs;
         public bool herdIsAlive;
+        public double herdHealth;
         //Constructor
         public Herd()
         {
@@ -29,6 +30,11 @@ namespace RobotsVsDinosaurs
             {
                 Console.WriteLine($"Name: {dinosaur.dinosaurType}");
             }
+        }
+        public void CheckHerdHealth()
+        {
+            double herdHealth;
+            herdHealth = dinosaurs.Sum(dinosaurs => dinosaurs.dinosaurHealth);
         }
     }
 }

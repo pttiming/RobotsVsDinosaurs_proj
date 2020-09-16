@@ -30,6 +30,7 @@ namespace RobotsVsDinosaurs
         {
             if (robotHealth <= 0)
             {
+                robotHealth = 0;
                 robotIsAlive = false;
                 Console.WriteLine(robotName + "has died");
             }
@@ -46,7 +47,6 @@ namespace RobotsVsDinosaurs
         public void IncomingRobotAttack(double damage)
         {
             robotHealth -= damage;
-            Console.WriteLine(robotName + "has been attacked.  Health now at: " + robotHealth);
             CheckRobotLife();
         }
     }

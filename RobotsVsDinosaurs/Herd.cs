@@ -12,6 +12,7 @@ namespace RobotsVsDinosaurs
         public List<Dinosaur> dinosaurs;
         public bool herdIsAlive;
         public double herdHealth;
+        public string herdName;
         //Constructor
         public Herd()
         {
@@ -28,13 +29,21 @@ namespace RobotsVsDinosaurs
         {
             foreach (Dinosaur dinosaur in dinosaurs)
             {
-                Console.WriteLine($"Name: {dinosaur.dinosaurType}");
+                Console.WriteLine($"Name: {dinosaur.dinosaurType} Health: {dinosaur.dinosaurHealth}");
+                Console.WriteLine($"Energy: {dinosaur.dinosaurPowerLevel} Power: {dinosaur.dinosaurAttackPower}");
             }
         }
-        public void CheckHerdHealth()
+        public double CheckHerdHealth()
         {
             double herdHealth;
             herdHealth = dinosaurs.Sum(dinosaurs => dinosaurs.dinosaurHealth);
+            return herdHealth;
         }
+        public void ListForAttack()
+        {
+            int totaldinosaurs = dinosaurs.Count;
+        }
+
+            
     }
 }

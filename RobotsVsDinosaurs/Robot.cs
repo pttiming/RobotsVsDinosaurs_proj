@@ -14,11 +14,12 @@ namespace RobotsVsDinosaurs
         public double robotPowerLevel;
         public Weapon defaultWeapon;
         public bool robotIsAlive;
+        public string robotFleet;
 
         //constructor
         public Robot(string robotName, Weapon defaultWeapon)
         {
-            robotHealth = 100;
+            robotHealth = 1;
             robotPowerLevel = 100;
             robotIsAlive = true;
             this.robotName = robotName;
@@ -39,12 +40,12 @@ namespace RobotsVsDinosaurs
                 Console.WriteLine(robotName + " has " + robotHealth + " health remainig");
             }
         }
-        public void AttackDinosaur()
+        public void AttackDinosaur(Dinosaur dinosaur)
         {
-
+                dinosaur.IncomingRobotAttack(defaultWeapon.weaponAttackPower);
         }
 
-        public void IncomingRobotAttack(double damage)
+        public void IncomingDinosaurAttack(double damage)
         {
             robotHealth -= damage;
             CheckRobotLife();

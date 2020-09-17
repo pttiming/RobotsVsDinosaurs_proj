@@ -16,28 +16,58 @@ namespace RobotsVsDinosaurs
         string playerTeam;
         string computerTeam;
         bool playAsRobot;
+        Armory activeArmory;
+        string[] activeAttacks;
 
         //Constructor
         public Battlefield()
         {
-            activeFleet = InitializeRobots();
-            activeHerd = InitializeDinosaurs();
+            activeArmory = InitilizeArmory();
+            
+            
+
 
         }
 
         //Methods
+
+        //Adds Weapons to Armory
+        public Armory InitilizeArmory()
+        {
+            Armory armory = new Armory();
+
+            return armory;
+        }
+
+        public void ArmRobots()
+        {
+            int totalRobots = activeFleet.robots.Count;
+            for(int i = 0; i < totalRobots; i++ )
+            activeArmory.AssignWeapontoRobot(activeFleet.robots[i]);
+        }
+
+        public void ArmComputerRobots()
+        {
+            int totalRobots = activeFleet.robots.Count;
+            for (int i = 0; i < totalRobots; i++)
+                activeArmory.ComputerPlayerWeapons(activeFleet.robots[i]);
+        }
         public Fleet InitializeRobots()
         {
-            //Instantiates New Weapons for a Game
+            ////Instantiates New Weapons for a Game & Adds to Armory
             Weapon weaponOne = new Weapon("Sword", 5);
+            activeArmory.AddWeaponToArmory(weaponOne);
             Weapon weaponTwo = new Weapon("Axe", 5);
+            activeArmory.AddWeaponToArmory(weaponTwo);
             Weapon weaponThree = new Weapon("Mace", 7);
-           
+            activeArmory.AddWeaponToArmory(weaponThree);
+
             //Instantiates New Robots
-            Robot robotOne = new Robot("Bracer", weaponOne);
-            Robot robotTwo = new Robot("Gash", weaponTwo);
-            Robot robotThree = new Robot("Ace", weaponThree);
+            Robot robotOne = new Robot("Bracer");
+            Robot robotTwo = new Robot("Gash");
+            Robot robotThree = new Robot("Ace");
            
+
             //Instantiates and adds Robots to Fleet
             Fleet fleetOne = new Fleet();
             fleetOne.AddRobotToFleet(robotOne);
@@ -49,7 +79,6 @@ namespace RobotsVsDinosaurs
             foreach (Robot robot in fleetOne.robots)
             {
                 Console.WriteLine($"Name: {robot.robotName}");
-                Console.WriteLine($"Weapon: {robot.defaultWeapon.weaponType}");
                 Console.WriteLine();
 
             }
@@ -57,6 +86,14 @@ namespace RobotsVsDinosaurs
         }
         public Herd InitializeDinosaurs()
         {
+            //Instantiate Attack Types
+            string[] dinoAttacks = new string[3];
+            dinoAttacks[0] = "Bite";
+            dinoAttacks[1] = "Claw";
+            dinoAttacks[2] = "Kick";
+            activeAttacks = dinoAttacks;
+
+
             //Instantiates New Dinosaurs
             Dinosaur dinoOne = new Dinosaur("T-Rex", 5);
             Dinosaur dinoTwo = new Dinosaur("Raptor", 7);
@@ -64,7 +101,7 @@ namespace RobotsVsDinosaurs
 
             //Instantiates Herd and adds Dinosaurs to Herd
             Herd herdOne = new Herd();
-            herdOne.dinosaurs.Add(dinoOne);
+            herdOne.AddDinosaurToHerd(dinoOne);
             herdOne.AddDinosaurToHerd(dinoTwo);
             herdOne.AddDinosaurToHerd(dinoThree);
 
@@ -73,12 +110,9 @@ namespace RobotsVsDinosaurs
             foreach (Dinosaur dinosaur in herdOne.dinosaurs)
             {
                 Console.WriteLine($"Name: {dinosaur.dinosaurType}");
-                Console.WriteLine($"Attack Power: {dinosaur.dinosaurAttackPower}");
                 Console.WriteLine();
 
             }
-            herdOne.CheckHerdHealth();
-            Console.WriteLine(herdOne.herdHealth);
             return herdOne;
         }
 
@@ -93,7 +127,7 @@ namespace RobotsVsDinosaurs
             if (playAsRobot == true)
             {
                 int herdSize = activeHerd.dinosaurs.Count;
-                Console.WriteLine("Which Dinosaur would you liketo attack?");
+                Console.WriteLine("Which Dinosaur would you like to attack?");
                 for (int i = 0; i < herdSize; i++)
                 {
                     int option = i + 1;
@@ -105,10 +139,10 @@ namespace RobotsVsDinosaurs
                 }
                 string userInput = Console.ReadLine();
                 attackeeIndex = int.Parse(userInput) - 1;
-
-                int FleetSize = activeFleet.robots.Count;
+                
+                int fleetSize = activeFleet.robots.Count;
                 Console.WriteLine("Which Robot would you like to use in your attack?");
-                for (int i = 0; i < FleetSize; i++)
+                for (int i = 0; i < fleetSize; i++)
                 {
                     int optionTwo = i + 1;
                     if (activeFleet.robots[i].robotIsAlive == true)
@@ -119,6 +153,7 @@ namespace RobotsVsDinosaurs
                 }
                 string userInputTwo = Console.ReadLine();
                 attackerIndex = int.Parse(userInputTwo) - 1;
+                
             }
             else
             {
@@ -135,6 +170,7 @@ namespace RobotsVsDinosaurs
                 }
                 string userInputTwo = Console.ReadLine();
                 attackeeIndex = int.Parse(userInputTwo) - 1;
+                
 
                 int herdSize = activeHerd.dinosaurs.Count;
                 Console.WriteLine("Which Dinosaur would you like to use to attack?");
@@ -150,6 +186,9 @@ namespace RobotsVsDinosaurs
                 }
                 string userInput = Console.ReadLine();
                 attackerIndex = int.Parse(userInput) - 1;
+                
+                SelectDinosaurAttackStyle(activeHerd.dinosaurs[attackerIndex]);
+
 
             }
             attackResult = DetermineAttackResult();
@@ -159,6 +198,7 @@ namespace RobotsVsDinosaurs
                 Console.WriteLine("Successful Attack");
                 activeFleet.robots[attackerIndex].AttackDinosaur(activeHerd.dinosaurs[attackeeIndex]);
                 herdHealth = activeHerd.CheckHerdHealth();
+                activeFleet.robots[attackerIndex].PostAttackEnergy();
 
                 if (herdHealth <= 0)
                 {
@@ -175,6 +215,7 @@ namespace RobotsVsDinosaurs
                 Console.WriteLine($"Unsuccessful Attack!  You have been counter attacked by {activeHerd.dinosaurs[attackeeIndex].dinosaurType}");
                 activeHerd.dinosaurs[attackeeIndex].AttackRobot(activeFleet.robots[attackerIndex]);
                 fleetHealth = activeFleet.CheckFleetHealth();
+                activeFleet.robots[attackerIndex].PostAttackEnergy();
                 if (fleetHealth <= 0)
                 {
                     DinosaurWin();
@@ -188,6 +229,7 @@ namespace RobotsVsDinosaurs
             else if (attackResult == 2 && playAsRobot == true)
             {
                 Console.WriteLine("The attack has ended in a stalemate!  You have taken no damage, nor have you inflicted any");
+                activeFleet.robots[attackerIndex].PostAttackEnergy();
                 GameMenu();
             }
             else if (attackResult == 1 && playAsRobot == false)
@@ -195,6 +237,7 @@ namespace RobotsVsDinosaurs
                 Console.WriteLine("Successful Attack");
                 activeHerd.dinosaurs[attackerIndex].AttackRobot(activeFleet.robots[attackeeIndex]);
                 fleetHealth = activeFleet.CheckFleetHealth();
+                activeHerd.dinosaurs[attackerIndex].PostAttackEnergy();
                 if (fleetHealth <= 0)
                 {
                     DinosaurWin();
@@ -210,6 +253,7 @@ namespace RobotsVsDinosaurs
                 Console.WriteLine($"Unsuccessful Attack!  You have been counter attacked by {activeFleet.robots[attackeeIndex].robotName}");
                 activeFleet.robots[attackeeIndex].AttackDinosaur(activeHerd.dinosaurs[attackerIndex]);
                 herdHealth = activeHerd.CheckHerdHealth();
+                activeHerd.dinosaurs[attackerIndex].PostAttackEnergy();
                 if (herdHealth <= 0)
                 {
                     RobotWin();
@@ -224,6 +268,7 @@ namespace RobotsVsDinosaurs
             else if (attackResult == 2 && playAsRobot == false)
             {
                 Console.WriteLine("The attack has ended in a stalemate!  You have taken no damage, nor have you inflicted any");
+                activeHerd.dinosaurs[attackerIndex].PostAttackEnergy();
                 GameMenu();
             }
             
@@ -270,8 +315,8 @@ namespace RobotsVsDinosaurs
 
         public void StartGame()
         {
-            activeFleet = InitializeRobots();
-            activeHerd = InitializeDinosaurs();
+            //activeFleet = InitializeRobots();
+            //activeHerd = InitializeDinosaurs();
             Console.WriteLine("Welcome to Robots vs. Dinosaurs");
             Console.WriteLine("Would you like to play as Robots or Dinosaurs?");
             Console.WriteLine("1. Robots");
@@ -287,6 +332,9 @@ namespace RobotsVsDinosaurs
                     playAsRobot = true;
                     badGuy = "Dinosaur";
                     computerTeam = "Herd";
+                    activeFleet = InitializeRobots();
+                    activeHerd = InitializeDinosaurs();
+                    ArmRobots();
                     RunGame();
                     Console.Clear();
                     break;
@@ -296,6 +344,9 @@ namespace RobotsVsDinosaurs
                     badGuy = "Robot";
                     computerTeam = "Fleet";
                     playAsRobot = false;
+                    activeHerd = InitializeDinosaurs();
+                    activeFleet = InitializeRobots();
+                    ArmComputerRobots();
                     RunGame();
                     Console.Clear();
                     break;
@@ -414,6 +465,23 @@ namespace RobotsVsDinosaurs
                     Environment.Exit(0);
                     break;
             }
+        }
+        public void SelectDinosaurAttackStyle(Dinosaur dinosaur)
+        {
+            Console.WriteLine("How would you like the Dinosaur to attack?");
+            
+            for(int i = 0; i < 3; i++)
+            {
+                int attackOption = i + 1;
+                Console.WriteLine($"{attackOption}: {activeAttacks[i]}");
+            }
+            string userInput = Console.ReadLine();
+            int attackIndex = int.Parse(userInput) - 1;
+            Console.WriteLine(dinosaur.dinosaurType + activeAttacks[attackIndex] + "s the robot");
+        }
+        public void AttackeeMenu()
+        {
+
         }
 
     }

@@ -28,13 +28,15 @@ namespace RobotsVsDinosaurs
 
         }
         //Methods
+        
+        //Checks to make sure Dinosaur is alive, sets the dinosaur as dead in they are not alive
         public void CheckDinosaurLife()
         {
             if (dinosaurHealth <= 0)
             {
                 dinosaurHealth = 0;
                 dinosaurIsAlive = false;
-                Console.WriteLine(dinosaurType + "has died");
+                Console.WriteLine(dinosaurType + " has died");
             }
             else
             {
@@ -42,18 +44,29 @@ namespace RobotsVsDinosaurs
             }
         }
 
+       //Decreases opposing Robots health as the result of an attack 
         public void AttackRobot(Robot robot)
         {
            
                 robot.IncomingDinosaurAttack(dinosaurAttackPower);
 
         }
+        //Dinosaur loses health as the result of incoming attack
         public void IncomingRobotAttack(double damage)
         {
             dinosaurHealth -= damage;
             CheckDinosaurLife();
+        }
 
-
+        //Decreases Energy after attack
+        public void PostAttackEnergy()
+        {
+            dinosaurPowerLevel -= 10;
+            if(dinosaurIsAlive == true)
+            {
+                Console.WriteLine(dinosaurType + "'s Energy now at: " + dinosaurPowerLevel);
+            }
+            
         }
     }
 }

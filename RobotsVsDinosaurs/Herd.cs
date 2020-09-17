@@ -13,6 +13,7 @@ namespace RobotsVsDinosaurs
         public bool herdIsAlive;
         public double herdHealth;
         public string herdName;
+        
         //Constructor
         public Herd()
         {
@@ -21,10 +22,13 @@ namespace RobotsVsDinosaurs
 
         }
         //Methods
+
+        //Adds a Dinosaur to a Herd
         public void AddDinosaurToHerd(Dinosaur dinosaur)
         {
             dinosaurs.Add(dinosaur);
         }
+        //Lists the attribuites for each Dinosaur in the herd
         public void ListHerd()
         {
             foreach (Dinosaur dinosaur in dinosaurs)
@@ -33,17 +37,13 @@ namespace RobotsVsDinosaurs
                 Console.WriteLine($"Energy: {dinosaur.dinosaurPowerLevel} Power: {dinosaur.dinosaurAttackPower}");
             }
         }
+        //Checks the aggregate health of the herd
         public double CheckHerdHealth()
         {
             double herdHealth;
             herdHealth = dinosaurs.Sum(dinosaurs => dinosaurs.dinosaurHealth);
             return herdHealth;
         }
-        public void ListForAttack()
-        {
-            int totaldinosaurs = dinosaurs.Count;
-        }
-
-            
+         
     }
 }

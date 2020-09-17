@@ -21,10 +21,13 @@ namespace RobotsVsDinosaurs
             fleetIsAlive = true;
         }
         //Methods
+       //Adds a Robot to Fleet
         public void AddRobotToFleet(Robot robot)
         {
             robots.Add(robot);
         }
+       
+        //Calculates the aggregate Herd Health
         public double CheckFleetHealth()
         {
             double fleetHealth;
@@ -32,6 +35,7 @@ namespace RobotsVsDinosaurs
             return fleetHealth;
         }
 
+        //Displays the attributes of Robots in Fleet
         public void ListFleet()
         {
             foreach (Robot robot in robots)
